@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="Ecomm.css" rel="stylesheet">
+</head>
+<body>
+    <div id="wrapper">
+    <div id="singleProduct">
+
+    </div>
+    </div>
+    <script>
+        let page= window.location.href
+        console.log(page);
+
+        if(!page.includes("id")){
+            alert("click on image")
+        }else{
+            let id=page.split("=")[1];
+            singleProduct(id)
+            console.log(id)
+            function singleProduct()
+            {
+    fetch("https://dummyjson.com/products/"+id)
+    .then((response)=>{
+       return response.json()
+    })
+    .then((result)=>{
+        console.log(result)
+        showData(result)
+    })
+        }
+        }
+
+        function showData(data){
+    
+    let box=document.createElement("div");
+    box.classList.add("product");
+    let image=document.createElement("img")
+    image.src=data.thumbnail;
+    // let link=document.createElement("a")
+    // link.innerHTML="singleproduct.html?id="+i;
+    
+    let title=document.createElement("h2");
+    title.innerHTML=data.title;
+    let description=document.createElement("p")
+    description.innerHTML=data.description;
+    let price=document.createElement("h4")
+    let icon=document.createElement("i")
+    icon.classList.add("fa-solid", "fa-indian-rupee-sign")
+    price.append(icon)
+    price.innerHTML += data.price;
+    // box.append(link)
+   box.append(image)
+   box.append(title)
+   box.append(description)
+   box.append(price)
+   document.querySelector("#singleProduct").append(box)
+    }
+  
+    </script>
+</body>
+</html>
